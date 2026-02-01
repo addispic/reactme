@@ -7,4 +7,5 @@ export type TextInputProps = {
   placeholder?: string;
   className?: string;
   setValue: (value: string) => void;
+  error?: string;
 };

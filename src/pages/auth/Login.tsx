@@ -1,19 +1,60 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 // icons
 import { MdOutlineMailOutline } from "react-icons/md";
 import { TbLockPassword } from "react-icons/tb";
 // components
 import TextInput from "../../components/commons/TextInput";
+// utils
+import { emailValidator } from "../../utils/input.validators";
 export default function Login() {
   // states
   // email
   const [email, setEmail] = useState<string>("");
+  const [emailError, setEmailError] = useState<string>("");
   // password
   const [password, setPassword] = useState<string>("");
+  const [passwordError, setPasswordError] = useState<string>("");
+
+  // effects
+  useEffect(() => {
+    setEmailError("");
+  }, [email]);
+  useEffect(() => {
+    setPasswordError("");
+  }, [password]);
 
   // handler
+  const validateLogin = () => {
+    const errors = {
+      email: "",
+      password: "",
+    };
+
+    // email
+    if (!email.trim()) {
+      errors.email = "Email address is required";
+    } else if (!emailValidator(email)) {
+      errors.email = "Invalid email address";
+    }
+
+    // password
+    if (!password) {
+      errors.password = "Password is required";
+    } else if (password.length < 3) {
+      errors.password = "Password is too short";
+    }
+
+    return errors;
+  };
   // login handler
   const loginHandler = () => {
+    const errors = validateLogin();
+
+    setEmailError(errors.email);
+    setPasswordError(errors.password);
+
+    // if any error exists → stop
+    if (errors.email || errors.password) return;
     console.log({ email, password });
   };
   return (
@@ -31,6 +72,7 @@ export default function Login() {
           type="text"
           value={email}
           setValue={setEmail}
+          error={emailError}
         />
         {/* password */}
         <TextInput
@@ -40,6 +82,7 @@ export default function Login() {
           value={password}
           setValue={setPassword}
           className="mt-5"
+          error={passwordError}
         />
 
         {/* buttons */}

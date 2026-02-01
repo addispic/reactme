@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 // icons
 import { MdOutlineMailOutline } from "react-icons/md";
 import { TbLockPassword } from "react-icons/tb";
@@ -57,6 +58,7 @@ export default function Login() {
     if (errors.email || errors.password) return;
     console.log({ email, password });
   };
+
   return (
     <div className="min-w-64 md:min-w-72 p-3 sm:p-4 md:p-5 lg:p-6 rounded-sm sm:rounded-md md:rounded-lg shadow-sm bg-white">
       <header>
@@ -84,6 +86,18 @@ export default function Login() {
           className="mt-5"
           error={passwordError}
         />
+
+        <div>
+          <p className="w-full  text-sm text-end my-2 italic text-neutral-600">
+            Don't have an account ?{" "}
+            <Link
+              to={"/auth/register"}
+              className="text-green-600 hover:underline"
+            >
+              Register
+            </Link>
+          </p>
+        </div>
 
         {/* buttons */}
         <div className="mt-5">

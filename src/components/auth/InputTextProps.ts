@@ -5,4 +5,7 @@ export type InputTextProps = {
   type: "text" | "password" | "number";
   placeholder?: string;
   inputClass?: string;
+  value: string;
+  error?: string;
+  setValue: (value: string) => void;
 };

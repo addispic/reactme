@@ -7,6 +7,11 @@ import { TbLockPassword } from "react-icons/tb";
 import TextInput from "../../components/commons/TextInput";
 // utils
 import { emailValidator } from "../../utils/input.validators";
+// hooks
+import { useAppDispatch } from "../../hooks";
+// slices
+// users
+import { login } from "../../features/users/users.slice";
 export default function Login() {
   // states
   // email
@@ -15,6 +20,9 @@ export default function Login() {
   // password
   const [password, setPassword] = useState<string>("");
   const [passwordError, setPasswordError] = useState<string>("");
+
+  // hooks
+  const dispatch = useAppDispatch();
 
   // effects
   useEffect(() => {
@@ -56,7 +64,7 @@ export default function Login() {
 
     // if any error exists → stop
     if (errors.email || errors.password) return;
-    console.log({ email, password });
+    dispatch(login({ email, password }));
   };
 
   return (

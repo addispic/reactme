@@ -7,6 +7,11 @@ import { RiLockPasswordLine } from "react-icons/ri";
 import InputText from "../../components/auth/InputText";
 // defs
 import { emailInputValidator } from "../../utils/input.validators";
+// hooks
+import { useAppDispatch } from "../../hooks";
+// slices
+// users
+import { register } from "../../features/users/users.slice";
 export default function Register() {
   // states
   // email
@@ -16,6 +21,9 @@ export default function Register() {
   // password
   const [password, setPassword] = useState<string>("");
   const [passwordError, setPasswordError] = useState<string>("");
+
+  // hooks
+  const dispatch = useAppDispatch();
 
   // effects
   useEffect(() => {
@@ -52,7 +60,7 @@ export default function Register() {
     if (errors.email || errors.password) {
       return;
     }
-    console.log({ email, password });
+    dispatch(register({ email, password }));
   };
 
   return (
